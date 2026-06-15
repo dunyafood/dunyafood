@@ -125,7 +125,7 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     height: auto;
-    min-height: 450px; /* Menü boyuna yaklaşması için minimum yükseklik */
+    min-height: 300px; /* Menü boyuna yaklaşması için minimum yükseklik */
 }
 
 .showcase-img {
