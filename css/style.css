@@ -75,6 +75,7 @@ body {
 /* YAN YANA YERLEŞİM (Flexbox Yapısı) */
 .main-content {
     display: flex;
+    align-items: flex-start; /* Menü ve resim alanının kendi yüksekliğinde kalmasını sağlar */
     max-width: 1200px;
     margin: 30px auto;
     gap: 20px; /* Menü ile resim arasındaki boşluk */
@@ -124,14 +125,13 @@ body {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    height: auto;
-    min-height: 300px; /* Menü boyuna yaklaşması için minimum yükseklik */
+    background-color: #ffffff; /* Kenarlarda boşluk kalırsa temiz dursun */
 }
 
 .showcase-img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Resmin bozulmadan alanı kaplamasını sağlar */
+    height: auto; /* Sabit yüksekliği kaldırarak orijinal en-boy oranını korur */
+    object-fit: contain; /* Resmin tamamının kırpılmadan sığmasını sağlar */
     display: block;
 }
 
@@ -181,8 +181,5 @@ body {
 @media (max-width: 768px) {
     .main-content {
         flex-direction: column;
-    }
-    .image-area {
-        min-height: 250px;
     }
 }
