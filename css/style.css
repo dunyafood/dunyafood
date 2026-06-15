@@ -183,3 +183,48 @@ body {
         flex-direction: column;
     }
 }
+/* ========================================== */
+/* SPORCULAR SAYFASI POP-UP GALERİ STİLLERİ  */
+/* ========================================== */
+
+/* Görselin Kart İçinde Doğal Durması İçin Güncelleme */
+.product-card img {
+    width: 100%;
+    height: auto; 
+    max-height: 220px; 
+    object-fit: contain; 
+}
+
+/* Pop-up (Modal) İçi Galeri Yapısı */
+.modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 resmi yan yana eşit böler */
+    gap: 15px; /* Resimlerin arasındaki boşluk */
+    margin: 20px 0;
+}
+
+.modal-gallery img {
+    width: 100%;
+    height: 150px; /* Resimlerin pop-up içinde düzenli durması için sabit yükseklik */
+    object-fit: cover; /* Resimleri bozmadan kutunun içine sığdırır */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* Fareyle resimlerin üzerine gelindiğinde hafif büyüme efekti */
+.modal-gallery img:hover {
+    transform: scale(1.05);
+    border-color: #d32f2f;
+}
+
+/* Mobil cihazlarda 3 resim yan yana sıkışmasın diye alt alta gelsin */
+@media (max-width: 480px) {
+    .modal-gallery {
+        grid-template-columns: 1fr;
+    }
+    .modal-gallery img {
+        height: 200px;
+    }
+}
