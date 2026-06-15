@@ -1,1 +1,188 @@
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sporcu Ürünleri - Dünya Food</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Ürün Listesi Grid Yapısı */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            border-top: 4px solid #d32f2f;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+        }
+        .product-card h4 {
+            margin: 15px 0 10px;
+            font-size: 1.3rem;
+            color: #333;
+        }
+        .product-card .features {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        .view-detail-btn {
+            background-color: #ff9800;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* DETAY MODAL (Açılır Pencere) STİLLERİ */
+        .modal {
+            display: none; /* Varsayılan olarak gizli */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+        }
+        /* CSS ile tıklandığında açılması için target tetikleyici */
+        .modal:target {
+            display: flex;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #333;
+        }
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .nutrition-table th, .nutrition-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .nutrition-table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-brand">
+    <h1><img src="imasges/logo-bykeskin.png" alt="byKeskin Logo" style="height: 50px; vertical-align: middle; margin-right: 10px;">Dünya Food</h1>
+    <h3>💪 Sporcu Beslenmesi Çözümleri</h3>
+    <a href="index.html" style="text-decoration: none; color: #d32f2f; font-weight: bold;">← Ana Sayfaya Dön</a>
+</header>
+
+<div class="main-content">
+    
+    <nav class="side-menu">
+        <h3>Kategoriler</h3>
+        <a href="sporcular.html" style="background-color: #d32f2f; color: white;">💪 Sporcular</a>
+        <a href="dunya-mutfaklari.html">🌏 Dünya Mutfakları</a>
+        <a href="trend-urunler.html">🚀 Trend Ürünler</a>
+        <a href="restoranlar.html">🍔 Fastfood & Restoran</a>
+        <a href="kahvaltiliklar.html">🥐 Kahvaltılıklar</a>
+        <a href="cocuklar.html">👶 Çocuk Ürünleri</a>
+        <a href="sandvic.html">🥪 Sandviç & Wrap</a>
+        <a href="parti.html">🎉 Parti Ürünleri</a>
+        <a href="atistirmalik.html">🍿 Atıştırmalık</a>
+        <a href="mangal.html">🔥 Mangal & Piknik</a>
+    </nav>
+
+    <div class="image-area" style="background: none; box-shadow: none;">
+        <div class="product-grid">
+            
+            <a href="#urun-detay-1" style="text-decoration: none; color: inherit;">
+                <div class="product-card">
+                    <img src="imasges/byKeskin_Mail_.png" alt="Protein Döner Strips"> 
+                    <h4>Protein Döner Strips</h4>
+                    <p class="features">✓ %100 Piliç Göğüs Eti <br> ✓ 30g+ Protein / Porsiyon</p>
+                    <button class="view-detail-btn">Detayları İncele</button>
+                </div>
+            </a>
+
+            </div>
+    </div>
+</div>
+
+<div id="urun-detay-1" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        <h2 style="color: #d32f2f; margin-bottom: 10px;">Protein Döner Strips</h2>
+        <p style="font-style: italic; color: #666; margin-bottom: 15px;">
+            "Hayatın hızlı temposunda beslenmenizden ve hedeflerinizden ödün vermek zorunda değilsiniz. Aktif yaşayanlar ve sporcular için hazırlanan bu lezzet, yüksek protein yapısıyla her an yanınızda."
+        </p>
+        
+        <h4>Öne Çıkan Özellikler</h4>
+        <ul style="margin-bottom: 15px; padding-left: 20px;">
+            <li>%100 Koruyucu ve Katkı Maddesiz Temiz İçerik</li>
+            <li>Sadece 2 Dakikada Tavada veya Mikrodalgada Hazır</li>
+            <li>Düşük Yağ Oranı ile Tamamen Diyet Dostu</li>
+        </ul>
+
+        <h4>Kullanım Alanları</h4>
+        <p>Salata üzerinde fitness menüsü olarak, pilav yanında klasik ana öğün olarak, makarna üzerinde veya wrap (dürüm) içinde pratikçe tüketebilirsiniz.</p>
+
+        <h4>Besin Değerleri (100g İçin)</h4>
+        <table class="nutrition-table">
+            <thead>
+                <tr>
+                    <th>Parametre</th>
+                    <th>100 g İçin Değerler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Enerji (Kalori)</strong></td><td>145 kcal / 610 kJ</td></tr>
+                <tr><td><strong>Protein</strong></td><td>22.5 g</td></tr>
+                <tr><td><strong>Yağ</strong></td><td>4.2 g</td></tr>
+                <tr><td><strong>Karbonhidrat</strong></td><td>1.5 g</td></tr>
+                <tr><td><strong>Tuz</strong></td><td>1.1 g</td></tr>
+            </tbody>
+        </table>
+        
+        <h4 style="margin-top: 15px;">Ambalaj Seçenekleri</h4>
+        <p>150 g | 250 g | 500 g</p>
+    </div>
+</div>
+
+</body>
+</html>
