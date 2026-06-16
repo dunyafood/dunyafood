@@ -1,1 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sporcu Ürünleri - Dünya Food</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Ürün Listesi Grid Yapısı */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            border-top: 4px solid #d32f2f;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+        }
+        .product-card h4 {
+            margin: 15px 0 10px;
+            font-size: 1.3rem;
+            color: #333;
+        }
+        .product-card .features {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        .view-detail-btn {
+            background-color: #ff9800;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
+        /* DETAY MODAL (Açılır Pencere) STİLLERİ */
+        .modal {
+            display: none; /* Varsayılan olarak gizli */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            align-items: center;
+            justify-content: center;
+        }
+        /* CSS ile tıklandığında açılması için target tetikleyici */
+        .modal:target {
+            display: flex;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #333;
+        }
+        .nutrition-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .nutrition-table th, .nutrition-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .nutrition-table th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-brand">
+    <h1><img src="imasges/logo-bykeskin.png" alt="byKeskin Logo" style="height: 50px; vertical-align: middle; margin-right: 10px;">Dünya Food</h1>
+    <h3>💪 Sporcu Beslenmesi Çözümleri</h3>
+    <a href="index.html" style="text-decoration: none; color: #d32f2f; font-weight: bold;">← Ana Sayfaya Dön</a>
+</header>
+
+<div class="main-content">
+    
+    <nav class="side-menu">
+        <h3>Kategoriler</h3>
+        <a href="sporcular.html" style="background-color: #d32f2f; color: white;">💪 Sporcular</a>
+        <a href="dunya-mutfaklari.html">🌏 Dünya Mutfakları</a>
+        <a href="trend-urunler.html">🚀 Trend Ürünler</a>
+        <a href="restoranlar.html">🍔 Fastfood & Restoran</a>
+        <a href="kahvaltiliklar.html">🥐 Kahvaltılıklar</a>
+        <a href="cocuklar.html">👶 Çocuk Ürünleri</a>
+        <a href="sandvic.html">🥪 Sandviç & Wrap</a>
+        <a href="parti.html">🎉 Parti Ürünleri</a>
+        <a href="atistirmalik.html">🍿 Atıştırmalık</a>
+        <a href="mangal.html">🔥 Mangal & Piknik</a>
+    </nav>
+
+    <div class="image-area" style="background: none; box-shadow: none;">
+        <div class="product-grid">
+            
+           <a href="#urun-detay-3" style="text-decoration: none; color: inherit;">
+    <div class="product-card">
+        <img src="imasges/kpl_sck_1.png" alt="Kızgın Baton – Kaşarlı & Bol Acılı Tavuk Sucuk"> 
+        <h4>Kızgın Baton – Kaşarlı & Bol Acılı Tavuk Sucuk</h4>
+        <p class="features">Eritilmiş Küp Kaşarlı & Bol Acılı <br> ✓ Dağ Kekiği Aromalı Gurme Baton</p>
+        <button class="view-detail-btn">Detayları İncele</button>
+    </div>
+</a>
+<a href="#urun-detay-2" style="text-decoration: none; color: inherit;">
+    <div class="product-card">
+        <img src="imasges/chicken-bites-1.png" alt="Chicken Bites – Tikka Masala"> 
+        <h4>Chicken Bites – Tikka Masala</h4>
+        <p class="features">✓ %100 Derisiz Göğüs Eti (Tam Pişmiş) <br> ✓ Tek Tıkla Çözünür (IQF Teknolojisi)</p>
+        <button class="view-detail-btn">Detayları İncele</button>
+    </div>
+</a>
+            </div>
+    </div>
+</div>
+
+<div id="urun-detay-1" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        <h2 style="color: #d32f2f; margin-bottom: 10px;">Protein Döner Strips</h2>
+        <p style="font-style: italic; color: #666; margin-bottom: 15px;">
+            "Hayatın hızlı temposunda beslenmenizden ve hedeflerinizden ödün vermek zorunda değilsiniz. Aktif yaşayanlar ve sporcular için hazırlanan bu lezzet, yüksek protein yapısıyla her an yanınızda."
+        </p>
+        
+        <h4>Öne Çıkan Özellikler</h4>
+        <ul style="margin-bottom: 15px; padding-left: 20px;">
+            <li>%100 Koruyucu ve Katkı Maddesiz Temiz İçerik</li>
+            <li>Sadece 2 Dakikada Tavada veya Mikrodalgada Hazır</li>
+            <li>Düşük Yağ Oranı ile Tamamen Diyet Dostu</li>
+        </ul>
+
+        <h4>Kullanım Alanları</h4>
+        <p>Salata üzerinde fitness menüsü olarak, pilav yanında klasik ana öğün olarak, makarna üzerinde veya wrap (dürüm) içinde pratikçe tüketebilirsiniz.</p>
+
+        <h4>Besin Değerleri (100g İçin)</h4>
+        <table class="nutrition-table">
+            <thead>
+                <tr>
+                    <th>Parametre</th>
+                    <th>100 g İçin Değerler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Enerji (Kalori)</strong></td><td>145 kcal / 610 kJ</td></tr>
+                <tr><td><strong>Protein</strong></td><td>22.5 g</td></tr>
+                <tr><td><strong>Yağ</strong></td><td>4.2 g</td></tr>
+                <tr><td><strong>Karbonhidrat</strong></td><td>1.5 g</td></tr>
+                <tr><td><strong>Tuz</strong></td><td>1.1 g</td></tr>
+            </tbody>
+        </table>
+        <h4>Ürün Görselleri</h4>
+<div class="modal-gallery">
+
+    <a href="#img1">
+        <img src="imasges/1.png" alt="Ürün Detay 1">
+    </a>
+
+    <a href="#img2">
+        <img src="imasges/2.png" alt="Ürün Detay 2">
+    </a>
+
+    <a href="#img3">
+        <img src="imasges/3.png" alt="Ürün Detay 3">
+    </a>
+
+</div>
+        <h4 style="margin-top: 15px;">Ambalaj Seçenekleri</h4>
+        <p>150 g | 250 g | 500 g</p>
+    </div>
+</div>
+<!-- Büyük Resim 1 -->
+<div id="img1" class="image-popup">
+    <a href="#urun-detay-1" class="close-image">&times;</a>
+    <img src="imasges/1.png" alt="">
+</div>
+
+<!-- Büyük Resim 2 -->
+<div id="img2" class="image-popup">
+    <a href="#urun-detay-1" class="close-image">&times;</a>
+    <img src="imasges/2.png" alt="">
+</div>
+
+<!-- Büyük Resim 3 -->
+<div id="img3" class="image-popup">
+    <a href="#urun-detay-1" class="close-image">&times;</a>
+    <img src="imasges/3.png" alt="">
+</div>
+    <div id="urun-detay-2" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        <h2 style="color: #d32f2f; margin-bottom: 10px;">Chicken Bites – Tikka Masala</h2>
+        <p style="font-style: italic; color: #666; margin-bottom: 15px;">"Tavuk göğsünün en sıkıcı halini unutun. Dünyanın en ikonik lezzetlerinden Tikka Masala marinasyonuyla, tamamen yağsız ve tam pişmiş küpler halinde donduruldu. Sadece ısıtın ve formunuzu korurken gurme bir deneyim yaşayın."</p>
+        
+        <h4>Öne Çıkan Özellikler</h4>
+        <ul style="margin-bottom: 15px; padding-left: 20px;">
+            <li>%100 Temiz İçerik – İlave Yağ, Koruyucu ve Katkı Maddesi İçermez</li>
+            <li>Tane Tane Donmuş (IQF) Yapısıyla Sadece Yiyeceğiniz Kadarını Alıp Isıtabilirsiniz</li>
+            <li>Tavada, Mikrodalgada veya Hava Fritözünde (Airfryer) 2 Dakikada Servise Hazır</li>
+        </ul>
+
+        <h4>Kullanım Alanları</h4>
+        <p>Diyet makarnalarınızın üzerine, basmati pirinç pilavınızın yanına, spor sonrası hazırlayacağınız pratik fit wrap’lerin içine veya doğrudan Akdeniz yeşillikleriyle dolu büyük bir salata tabağına ekleyerek öğününüzü saniyeler içinde zenginleştirebilirsiniz.</p>
+
+        <h4>Besin Değerleri (100g İçin)</h4>
+        <table class="nutrition-table">
+            <thead>
+                <tr>
+                    <th>Parametre</th>
+                    <th>100 g İçin Değerler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Enerji (Kalori)</strong></td><td>128 kcal / 539 kJ</td></tr>
+                <tr><td><strong>Protein</strong></td><td>24.8 g</td></tr>
+                <tr><td><strong>Yağ</strong></td><td>2.1 g</td></tr>
+                <tr><td><strong>Karbonhidrat</strong></td><td>1.8 g</td></tr>
+                <tr><td><strong>Tuz</strong></td><td>0.9 g</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ürün Görselleri</h4>
+        <div class="modal-gallery">
+            <a href="#img-2-1"><img src="imasges/chicken-bites-1.png" alt="Detay 1"></a>
+            <a href="#img-2-2"><img src="imasges/chicken-bites-2.png" alt="Detay 2"></a>
+            <a href="#img-2-3"><img src="imasges/chicken-bites-3.png" alt="Detay 3"></a>
+        </div>
+
+        <h4 style="margin-top: 15px;">Ambalaj Seçenekleri</h4>
+        <p>150 g | 250 g | 500 g</p>
+    </div>
+</div>
+
+<div id="img-2-1" class="image-popup">
+    <a href="#urun-detay-2" class="close-image">&times;</a>
+    <img src="imasges/chicken-bites-1.png" alt="">
+</div>
+
+<div id="img-2-2" class="image-popup">
+    <a href="#urun-detay-2" class="close-image">&times;</a>
+    <img src="imasges/chicken-bites-2.png" alt="">
+</div>
+
+<div id="img-2-3" class="image-popup">
+    <a href="#urun-detay-2" class="close-image">&times;</a>
+    <img src="imasges/chicken-bites-3.png" alt="">
+</div>
+  <div id="urun-detay-3" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        <h2 style="color: #d32f2f; margin-bottom: 10px;">Kızgın Baton – Kaşarlı & Bol Acılı Tavuk Sucuk</h2>
+        <p style="font-style: italic; color: #666; margin-bottom: 15px;">"Geleneksel sucuk keyfini fit yaşayın! %100 yağsız piliç etleri, eriyen nefis kaşar peyniri küpleri, bol acı ve dağ kekiğinin muazzam aromasıyla baton formunda bir araya geldi. Yüksek proteinli, düşük yağlı ve gurme lezzetli!"</p>
+        
+        <h4>Öne Çıkan Özellikler</h4>
+        <ul style="margin-bottom: 15px; padding-left: 20px;">
+            <li>Yüksek Isıya Dayanıklı Kaşar Küpleriyle Pişerken Muazzam</li>
+            <li>Geleneksel Sucuklara Göre %70 Daha Düşük Yağ Oranı ile Diyet Dostu</li>
+            <li>Baton Formatı Sayesinde Kolayca Dilimlenir, Tavada veya Tostta 3 Dakikada Hazır</li>
+        </ul>
+
+        <h4>Kullanım Alanları</h4>
+        <p>Sabah kahvaltılarında fit omletlerinizin içinde, yağsız tostlarınızın arasında ya da akşam öğünlerinde yüksek proteinli bir sucuklu sote olarak basmati pilavınızın yanında güvenle tüketebilirsiniz.</p>
+
+        <h4>Besin Değerleri (100g İçin)</h4>
+        <table class="nutrition-table">
+            <thead>
+                <tr>
+                    <th>Parametre</th>
+                    <th>100 g İçin Değerler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Enerji (Kalori)</strong></td><td>168 kcal / 702 kJ</td></tr>
+                <tr><td><strong>Protein</strong></td><td>21.2 g</td></tr>
+                <tr><td><strong>Yağ</strong></td><td>7.4 g</td></tr>
+                <tr><td><strong>Karbonhidrat</strong></td><td>1.2 g</td></tr>
+                <tr><td><strong>Tuz</strong></td><td>1.4 g</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ürün Görselleri</h4>
+        <div class="modal-gallery">
+            <a href="#img-3-1"><img src="imasges/kpl_sck_1.png" alt="Detay 1"></a>
+            <a href="#img-3-2"><img src="imasges/kpl_sck_2.png" alt="Detay 2"></a>
+            <a href="#img-3-3"><img src="imasges/kpl_sck_3.png" alt="Detay 3"></a>
+        </div>
+
+        <h4 style="margin-top: 15px;">Ambalaj Seçenekleri</h4>
+        <p>350 g Vakumlu Baton Ambalaj | 750 g Ekonomik Dilimli Boy</p>
+    </div>
+</div>
+
+<div id="img-3-1" class="image-popup">
+    <a href="#urun-detay-3" class="close-image">&times;</a>
+    <img src="imasges/kpl_sck_1.png" alt="">
+</div>
+
+<div id="img-3-2" class="image-popup">
+    <a href="#urun-detay-3" class="close-image">&times;</a>
+    <img src="imasges/kpl_sck_2.png" alt="">
+</div>
+
+<div id="img-3-3" class="image-popup">
+    <a href="#urun-detay-3" class="close-image">&times;</a>
+    <img src="imasges/kpl_sck_3.png" alt="">
+</div>
+</body>
+</html>
