@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dünya Food - Ürün Ekleme Sihirbazı</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; color: #333; padding: 30px; }
+        .creator-container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-top: 6px solid #d32f2f; }
+        h2 { color: #d32f2f; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h3 { color: #ff9800; margin-top: 25px; }
+        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 5px; color: #555; }
+        input, textarea, select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        textarea { resize: vertical; height: 80px; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-generate { background-color: #d32f2f; color: white; border: none; padding: 15px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 20px; }
+        .btn-generate:hover { background-color: #b71c1c; }
+        .output-box { margin-top: 30px; background: #272822; color: #f8f8f2; padding: 20px; border-radius: 6px; position: relative; }
+        .output-box pre { white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier New', Courier, monospace; font-size: 13px; margin: 0; }
+        .copy-btn { position: absolute; top: 10px; right: 10px; background: #ff9800; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .copy-btn:hover { background: #e65100; }
+        .instructions { background: #fff3e0; border-left: 5px solid #ff9800; padding: 15px; border-radius: 4px; margin-bottom: 20px; font-size: 14px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="creator-container">
+    <h2>🚀 Dünya Food Ürün Kodu Üretici</h2>
+    
+    <div class="instructions">
+        <strong>💡 Nasıl Kullanılır?</strong><br>
+        1. Aşağıdaki alanları yeni ürüne göre eksiksiz doldurun.<br>
+        2. <strong>"HTML Kodlarını Oluştur"</strong> butonuna basın.<br>
+        3. Altta çıkan kod kutularındaki yönergeleri takip ederek kopyalayıp ilgili dosyalara yapıştırın.
+    </div>
+
+    <form id="productForm" onsubmit="generateCodes(event)">
+        <div class="row">
+            <div class="form-group">
+                <label for="pId">Ürün Benzersiz ID No (Örn: 2, 3, 4...):</label>
+                <input type="number" id="pId" value="2" required>
+            </div>
+            <div class="form-group">
+                <label for="pName">Ürün Adı:</label>
+                <input type="text" id="pName" placeholder="Örn: Protein Döner Strips" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="pSlogan">Ürün Sloganı (İtalik Yazı):</label>
+            <input type="text" id="pSlogan" placeholder="Örn: Aktif yaşayanlar ve sporcular için hazırlanan bu lezzet..." required>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="pFeature1">Kart Özellik 1 (Örn: ✓ %100 Piliç Göğüs Eti):</label>
+                <input type="text" id="pFeature1" required>
+            </div>
+            <div class="form-group">
+                <label for="pFeature2">Kart Özellik 2 (Örn: ✓ 30g+ Protein / Porsiyon):</label>
+                <input type="text" id="pFeature2" required>
+            </div>
+        </div>
+
+        <h3>📋 Detay Penceresi (Modal) Bilgileri</h3>
+        
+        <div class="row">
+            <div class="form-group">
+                <label for="pDetailF1">Öne Çıkan Özellik 1:</label>
+                <input type="text" id="pDetailF1" placeholder="Örn: %100 Koruyucu ve Katkı Maddesiz Temiz İçerik" required>
+            </div>
+            <div class="form-group">
+                <label for="pDetailF2">Öne Çıkan Özellik 2:</label>
+                <input type="text" id="pDetailF2" placeholder="Örn: Sadece 2 Dakikada Tavada Hazır" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pDetailF3">Öne Çıkan Özellik 3:</label>
+            <input type="text" id="pDetailF3" placeholder="Örn: Düşük Yağ Oranı ile Tamamen Diyet Dostu" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pUsage">Kullanım Alanları:</label>
+            <textarea id="pUsage" placeholder="Örn: Salata üzerinde fitness menüsü olarak, pilav yanında..." required></textarea>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="pImg1">Görsel 1 Yolu (Ana Görsel):</label>
+                <input type="text" id="pImg1" value="imasges/1.png" required>
+            </div>
+            <div class="form-group">
+                <label for="pImg2">Görsel 2 Yolu (Galeri):</label>
+                <input type="text" id="pImg2" value="imasges/2.png" required>
+            </div>
+            <div class="form-group">
+                <label for="pImg3">Görsel 3 Yolu (Galeri):</label>
+                <input type="text" id="pImg3" value="imasges/3.png" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="pPackage">Ambalaj Seçenekleri:</label>
+            <input type="text" id="pPackage" value="150 g | 250 g | 500 g" required>
+        </div>
+
+        <h3>📊 Besin Değerleri (100g İçin)</h3>
+        <div class="row">
+            <div class="form-group">
+                <label for="nutCal">Enerji (Kalori):</label>
+                <input type="text" id="nutCal" value="145 kcal / 610 kJ">
+            </div>
+            <div class="form-group">
+                <label for="nutProt">Protein (g):</label>
+                <input type="text" id="nutProt" value="22.5 g">
+            </div>
+            <div class="form-group">
+                <label for="nutFat">Yağ (g):</label>
+                <input type="text" id="nutFat" value="4.2 g">
+            </div>
+            <div class="form-group">
+                <label for="nutCarb">Karbonhidrat (g):</label>
+                <input type="text" id="nutCarb" value="1.5 g">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="nutSalt">Tuz (g):</label>
+            <input type="text" id="nutSalt" value="1.1 g">
+        </div>
+
+        <button type="submit" class="btn-generate">🔥 HTML Kodlarını Oluştur</button>
+    </form>
+
+    <div id="results" style="display:none;">
+        <div class="output-box">
+            <h3>1) İlgili Kategori Sayfasında (Örn: sporcular.html) "&lt;div class='product-grid'&gt;" İÇİNE YAPIŞTIRILACAK KOD:</h3>
+            <button class="copy-btn" onclick="copyToClipboard('catCode')">Kopyala</button>
+            <pre id="catCode"></pre>
+        </div>
+
+        <div class="output-box">
+            <h3>2) Aynı Kategori Sayfasının EN ALTINA ("&lt;/body&gt;" Etiketinden Hemen Önce) YAPIŞTIRILACAK POP-UP KODLARI:</h3>
+            <button class="copy-btn" onclick="copyToClipboard('popupCode')">Kopyala</button>
+            <pre id="popupCode"></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+function generateCodes(e) {
+    e.preventDefault();
+    
+    // Değerleri alıyoruz
+    const id = document.getElementById('pId').value;
+    const name = document.getElementById('pName').value;
+    const slogan = document.getElementById('pSlogan').value;
+    const f1 = document.getElementById('pFeature1').value;
+    const f2 = document.getElementById('pFeature2').value;
+    const df1 = document.getElementById('pDetailF1').value;
+    const df2 = document.getElementById('pDetailF2').value;
+    const df3 = document.getElementById('pDetailF3').value;
+    const usage = document.getElementById('pUsage').value;
+    const img1 = document.getElementById('pImg1').value;
+    const img2 = document.getElementById('pImg2').value;
+    const img3 = document.getElementById('pImg3').value;
+    const pack = document.getElementById('pPackage').value;
+    
+    const cal = document.getElementById('nutCal').value;
+    const prot = document.getElementById('nutProt').value;
+    const fat = document.getElementById('nutFat').value;
+    const carb = document.getElementById('nutCarb').value;
+    const salt = document.getElementById('nutSalt').value;
+
+    // 1. Kategori Grid Kodu
+    const catHtml = `<a href="#urun-detay-${id}" style="text-decoration: none; color: inherit;">
+    <div class="product-card">
+        <img src="${img1}" alt="${name}"> 
+        <h4>${name}</h4>
+        <p class="features">${f1} <br> ${f2}</p>
+        <button class="view-detail-btn">Detayları İncele</button>
+    </div>
+</a>
+`;
+
+    // 2. Pop-up ve Lightbox Kodları
+    const popupHtml = `<div id="urun-detay-${id}" class="modal">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        <h2 style="color: #d32f2f; margin-bottom: 10px;">${name}</h2>
+        <p style="font-style: italic; color: #666; margin-bottom: 15px;">"${slogan}"</p>
+        
+        <h4>Öne Çıkan Özellikler</h4>
+        <ul style="margin-bottom: 15px; padding-left: 20px;">
+            <li>${df1}</li>
+            <li>${df2}</li>
+            <li>${df3}</li>
+        </ul>
+
+        <h4>Kullanım Alanları</h4>
+        <p>${usage}</p>
+
+        <h4>Besin Değerleri (100g İçin)</h4>
+        <table class="nutrition-table">
+            <thead>
+                <tr>
+                    <th>Parametre</th>
+                    <th>100 g İçin Değerler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Enerji (Kalori)</strong></td><td>${cal}</td></tr>
+                <tr><td><strong>Protein</strong></td><td>${prot}</td></tr>
+                <tr><td><strong>Yağ</strong></td><td>${fat}</td></tr>
+                <tr><td><strong>Karbonhidrat</strong></td><td>${carb}</td></tr>
+                <tr><td><strong>Tuz</strong></td><td>${salt}</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ürün Görselleri</h4>
+        <div class="modal-gallery">
+            <a href="#img-${id}-1"><img src="${img1}" alt="Detay 1"></a>
+            <a href="#img-${id}-2"><img src="${img2}" alt="Detay 2"></a>
+            <a href="#img-${id}-3"><img src="${img3}" alt="Detay 3"></a>
+        </div>
+
+        <h4 style="margin-top: 15px;">Ambalaj Seçenekleri</h4>
+        <p>${pack}</p>
+    </div>
+</div>
+
+<div id="img-${id}-1" class="image-popup">
+    <a href="#urun-detay-${id}" class="close-image">&times;</a>
+    <img src="${img1}" alt="">
+</div>
+
+<div id="img-${id}-2" class="image-popup">
+    <a href="#urun-detay-${id}" class="close-image">&times;</a>
+    <img src="${img2}" alt="">
+</div>
+
+<div id="img-${id}-3" class="image-popup">
+    <a href="#urun-detay-${id}" class="close-image">&times;</a>
+    <img src="${img3}" alt="">
+</div>`;
+
+    document.getElementById('catCode').innerText = catHtml;
+    document.getElementById('popupCode').innerText = popupHtml;
+    document.getElementById('results').style.display = 'block';
+    
+    // Sayfayı sonuçlara kaydır
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyToClipboard(elementId) {
+    const text = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Kod başarıyla kopyalandı!");
+    }).catch(err => {
+        alert("Hata oluştu, lütfen manuel kopyalayın.");
+    });
+}
+</script>
+</body>
+</html>
